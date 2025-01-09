@@ -1,0 +1,42 @@
+{
+  "id": "CHAR_D32A01A9-92A6-4755-B21D-7B6A1291F7AD",
+  "reference_id": "ex-00001",
+  "status": "CANCELED",
+  "created_at": "2019-08-21T15:14:58.121-03:00",
+  "paid_at": "2019-08-21T15:14:58.121-03:00",
+  "description": "Motivo da cobranca",
+  "amount": {
+    "value": 1000,
+    "currency": "BRL",
+    "summary": {
+      "total": 1000,
+      "paid": 1000,
+      "refunded": 1000
+    }
+  },
+  "payment_response": {
+    "code": "20000",
+    "message": "SUCESSO",
+    "reference": "1566411299393"
+  },
+  "payment_method": {
+    "type": "CREDIT_CARD",
+    "installments": 1,
+    "capture": true,
+    "card": {
+      "brand": "VISA",
+      "first_digits": "411111",
+      "last_digits": "1111",
+      "exp_month": "12",
+      "exp_year": "2026",
+      "holder": {
+        "name": "Jose da Silva"
+      }
+    }
+  },
+  "links": [],
+  "notification_urls": [
+    "https://yourserver.com/nas_ecommerce/d32a01a9-92a6-4755-b21d-7b6a1291f7ad"
+  ],
+  "metadata": {}
+}

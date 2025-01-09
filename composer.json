@@ -1,0 +1,64 @@
+{
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "silbeckdevs/pagbank-sdk-php",
+  "description": "SDK php para integração com a API PagBank",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "type": "library",
+  "require": {
+    "php": "^8.2",
+    "psr/http-client": "^1.0.3",
+    "guzzlehttp/guzzle": "^7.9.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5.2",
+    "phpstan/phpstan": "^2.1.1",
+    "kint-php/kint": "^6.0.1",
+    "monolog/monolog": "^3.8.1",
+    "friendsofphp/php-cs-fixer": "^3.67.0",
+    "brainmaestro/composer-git-hooks": "^3.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "PagBankApi\\": "src/PagBankApi/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PagBankApi\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "start": "php -S localhost:8879 -t .",
+    "format:check": "php-cs-fixer fix --dry-run --stop-on-violation",
+    "format:fix": "php-cs-fixer fix",
+    "phpstan": "phpstan analyse -c phpstan.neon --xdebug",
+    "phpunit": "phpunit --configuration phpunit.xml --testdox",
+    "test": [
+      "@phpstan",
+      "@phpunit"
+    ],
+    "lint": [
+      "@format:fix",
+      "@phpstan"
+    ],
+    "test:unit": "phpunit tests/Unit --configuration phpunit.xml --testdox",
+    "test:e2e": "phpunit tests/E2E --configuration phpunit.xml --testdox",
+    "test:coverage": "phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml --coverage-html build/coverage",
+    "post-install-cmd": "cghooks add --ignore-lock",
+    "post-update-cmd": "cghooks update"
+  },
+  "extra": {
+    "hooks": {
+      "config": {
+        "stop-on-failure": [
+          "pre-push",
+          "pre-commit"
+        ]
+      },
+      "pre-commit": [
+        "composer format:check"
+      ]
+    }
+  }
+}

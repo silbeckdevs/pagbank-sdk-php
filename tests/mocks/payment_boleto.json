@@ -1,0 +1,123 @@
+{
+  "id": "ORDE_E8A44EB1-89BC-4261-9004-739A09B53A8C",
+  "reference_id": "ex-00001",
+  "created_at": "2023-02-08T15:10:15.763-03:00",
+  "customer": {
+    "name": "Jose da Silva",
+    "email": "email@test.com",
+    "tax_id": "12345679891",
+    "phones": [
+      {
+        "type": "MOBILE",
+        "country": "55",
+        "area": "11",
+        "number": "999999999"
+      }
+    ]
+  },
+  "items": [
+    {
+      "reference_id": "referencia do item",
+      "name": "nome do item",
+      "quantity": 1,
+      "unit_amount": 500
+    }
+  ],
+  "shipping": {
+    "address": {
+      "street": "Avenida Brigadeiro Faria Lima",
+      "number": "1384",
+      "complement": "apto 12",
+      "locality": "Pinheiros",
+      "city": "São Paulo",
+      "region_code": "SP",
+      "country": "BRA",
+      "postal_code": "01452002"
+    }
+  },
+  "charges": [
+    {
+      "id": "CHAR_BF10AE3B-68D2-430D-AED6-0D5E2C7E180E",
+      "reference_id": "referencia da cobranca",
+      "status": "WAITING",
+      "created_at": "2023-02-08T15:10:15.901-03:00",
+      "description": "descricao da cobranca",
+      "amount": {
+        "value": 500,
+        "currency": "BRL",
+        "summary": {
+          "total": 500,
+          "paid": 0,
+          "refunded": 0
+        }
+      },
+      "payment_response": {
+        "code": "20000",
+        "message": "SUCESSO"
+      },
+      "payment_method": {
+        "type": "BOLETO",
+        "boleto": {
+          "id": "0E243EE1-736A-45EF-B153-CC9B9F0A838F",
+          "barcode": "03399853012970000024227020901016278150000015630",
+          "formatted_barcode": "03399.85301 29700.000242 27020.901016 2 78150000015630",
+          "due_date": "2023-06-20",
+          "instruction_lines": {
+            "line_1": "Pagamento processado para DESC Fatura",
+            "line_2": "Via PagSeguro"
+          },
+          "holder": {
+            "name": "Jose da Silva",
+            "tax_id": "12345679891",
+            "email": "jose@email.com",
+            "address": {
+              "region": "São Paulo",
+              "city": "Sao Paulo",
+              "postal_code": "01452002",
+              "street": "Avenida Brigadeiro Faria Lima",
+              "number": "1384",
+              "locality": "Pinheiros",
+              "country": "Brasil",
+              "region_code": "SP"
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "rel": "SELF",
+          "href": "https://boleto.sandbox.pagseguro.com.br/0e243ee1-736a-45ef-b153-cc9b9f0a838f.pdf",
+          "media": "application/pdf",
+          "type": "GET"
+        },
+        {
+          "rel": "SELF",
+          "href": "https://boleto.sandbox.pagseguro.com.br/0e243ee1-736a-45ef-b153-cc9b9f0a838f.png",
+          "media": "image/png",
+          "type": "GET"
+        },
+        {
+          "rel": "SELF",
+          "href": "https://sandbox.api.pagseguro.com/charges/CHAR_BF10AE3B-68D2-430D-AED6-0D5E2C7E180E",
+          "media": "application/json",
+          "type": "GET"
+        }
+      ]
+    }
+  ],
+  "notification_urls": ["https://meusite.com/notificacoes"],
+  "links": [
+    {
+      "rel": "SELF",
+      "href": "https://sandbox.api.pagseguro.com/orders/ORDE_E8A44EB1-89BC-4261-9004-739A09B53A8C",
+      "media": "application/json",
+      "type": "GET"
+    },
+    {
+      "rel": "PAY",
+      "href": "https://sandbox.api.pagseguro.com/orders/ORDE_E8A44EB1-89BC-4261-9004-739A09B53A8C/pay",
+      "media": "application/json",
+      "type": "POST"
+    }
+  ]
+}

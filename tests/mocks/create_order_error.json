@@ -1,0 +1,14 @@
+{
+  "error_messages": [
+    {
+      "error": "incomplete_configuration",
+      "parameter_name": "splits.receivers[0].configurations.custody.apply",
+      "description": "At this time, custody configuration must be applied (true for all split receivers or none"
+    },
+    {
+      "error": "incomplete_configuration",
+      "parameter_name": "splits.receivers[1].configurations.custody.apply",
+      "description": "At this time, custody configuration must be applied (true)for all split receivers or none"
+    }
+  ]
+}

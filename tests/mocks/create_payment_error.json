@@ -1,0 +1,9 @@
+{
+  "error_messages": [
+    {
+      "code": "40002",
+      "description": "allowed values are [BOLETO, CREDIT_CARD, DEBIT_CARD]",
+      "parameter_name": "charges[0].payment_method.type"
+    }
+  ]
+}
