@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use PagBankApi\Entity\Boleto;
 use PHPUnit\Framework\TestCase;
 
-class BoletoUnitTest extends TestCase
+class UnitBoletoTest extends TestCase
 {
     public function testSetDueDateWithValidDate(): void
     {

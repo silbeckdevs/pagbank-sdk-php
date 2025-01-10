@@ -10,7 +10,7 @@ use PagBankApi\Entity\Order;
 use PagBankApi\Entity\PaymentMethod;
 use PagBankApi\Service\PagBankService;
 
-$pagBankService = new PagBankService(new PagBankConfig('123456789', sandbox: true));
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
 
 $order = new Order();
 $order
@@ -71,7 +71,7 @@ use PagBankApi\Entity\Order;
 use PagBankApi\Entity\PaymentMethod;
 use PagBankApi\Service\PagBankService;
 
-$pagBankService = new PagBankService(new PagBankConfig('123456789', sandbox: true));
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
 
 $order = new Order();
 // populate oder ...
@@ -88,7 +88,7 @@ var_dump($response->getQrCodes());
 ## Outros recursos
 
 ```php
-$pagBankService = new PagBankService(new PagBankConfig('123456789', sandbox: true));
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
 
 $pagBankService->getOrder(...);
 $pagBankService->getOrderByParams(...);

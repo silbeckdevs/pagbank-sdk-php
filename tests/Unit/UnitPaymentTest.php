@@ -5,7 +5,7 @@ namespace PagBankApi\Tests\Unit;
 use PagBankApi\Entity\PaymentMethod;
 use PagBankApi\Tests\BaseTestCase;
 
-class PaymentUnitTest extends BaseTestCase
+class UnitPaymentTest extends BaseTestCase
 {
     public function testPaymentMethod(): void
     {

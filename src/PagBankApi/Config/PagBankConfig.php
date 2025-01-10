@@ -6,12 +6,6 @@ namespace PagBankApi\Config;
 
 class PagBankConfig
 {
-    private string $token;
-
-    private bool $sandbox;
-
-    private string $baseUrl;
-
     public const BASE_URL_PRODUCTION = 'https://api.pagseguro.com';
 
     public const BASE_URL_SANDBOX = 'https://sandbox.api.pagseguro.com';
@@ -21,17 +15,22 @@ class PagBankConfig
     public const ENVIRONMENT_SANDBOX = 'sandbox';
 
     public function __construct(
-        string $token,
-        bool $sandbox = false,
+        private readonly string $token,
+        private readonly string $environment = self::ENVIRONMENT_PRODUCTION,
     ) {
-        $this->token = $token;
-        $this->sandbox = $sandbox;
-        $this->baseUrl = $this->sandbox ? self::BASE_URL_SANDBOX : self::BASE_URL_PRODUCTION;
+        if (!in_array($environment, [self::ENVIRONMENT_SANDBOX, self::ENVIRONMENT_PRODUCTION])) {
+            throw new \InvalidArgumentException("Invalid environment: {$environment}");
+        }
     }
 
     public function isProduction(): bool
     {
-        return false === $this->sandbox;
+        return self::ENVIRONMENT_PRODUCTION === $this->environment;
+    }
+
+    public function getBaseUrl(): string
+    {
+        return $this->isProduction() ? self::BASE_URL_PRODUCTION : self::BASE_URL_SANDBOX;
     }
 
     public function getBaseUrlConnect(): string
@@ -45,20 +44,8 @@ class PagBankConfig
         return $this->token;
     }
 
-    public function setToken(string $token): static
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    public function getBaseUrl(): string
-    {
-        return $this->baseUrl;
-    }
-
     public function getEnvironment(): string
     {
-        return $this->sandbox ? self::ENVIRONMENT_SANDBOX : self::ENVIRONMENT_PRODUCTION;
+        return $this->environment;
     }
 }

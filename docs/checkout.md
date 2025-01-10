@@ -9,7 +9,7 @@ use PagBankApi\Config\PagBankConfig;
 use PagBankApi\Entity\Checkout;
 use PagBankApi\Service\PagBankService;
 
-$pagBankService = new PagBankService(new PagBankConfig('123456789', sandbox: true));
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
 
 $checkout = new Checkout();
 $checkout
@@ -54,7 +54,7 @@ var_dump($response->getOrders());
 ## Outros recursos
 
 ```php
-$pagBankService = new PagBankService(new PagBankConfig('123456789', sandbox: true));
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
 
 $pagBankService->getCheckout(...);
 $pagBankService->activateCheckout(...);

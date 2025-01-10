@@ -6,7 +6,7 @@ use PagBankApi\Entity\Order;
 use PagBankApi\Entity\PaymentMethod;
 use PagBankApi\Tests\BaseTestCase;
 
-class OrderUnitTest extends BaseTestCase
+class UnitOrderTest extends BaseTestCase
 {
     public function testOrderSerialize(): void
     {

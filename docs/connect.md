@@ -5,7 +5,7 @@
 ## Criar aplicação
 
 ```php
-$pagBankService = new PagBankService(new PagBankConfig('123456789', sandbox: true));
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
 $connectService = $pagBankService->getConnectService();
 
 $responseApp = $connectService->createApplication(
