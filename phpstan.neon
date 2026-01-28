@@ -1,6 +1,6 @@
 parameters:
   level: 9
-  phpVersion: 80300
+  phpVersion: 80200 # PHP 8.2.0
   checkFunctionNameCase: true
   checkInternalClassCaseSensitivity: true
   reportMaybesInPropertyPhpDocTypes: true
