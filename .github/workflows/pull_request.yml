@@ -50,8 +50,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-folder-
 
+      - name: Validate composer files
+        run: composer validate --strict
+
       - name: Install dependencies
-        run: composer update --no-interaction --no-progress
+        run: composer install --no-interaction --no-progress
+
+      - name: Security audit
+        run: composer audit --no-dev
 
       - name: Static analysis
         run: composer phpstan
