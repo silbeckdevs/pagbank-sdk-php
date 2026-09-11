@@ -45,6 +45,8 @@ class Charge implements PagBankSerializable
     #[PropertyMapping(className: Link::class, type: 'array')]
     private ?array $links = null;
 
+    private ?QrCode $qr_code = null;
+
     /**
      * @var string[]|null
      */
@@ -149,6 +151,11 @@ class Charge implements PagBankSerializable
     public function getLinks(): ?array
     {
         return $this->links;
+    }
+
+    public function getQrCode(): ?QrCode
+    {
+        return $this->qr_code;
     }
 
     /**

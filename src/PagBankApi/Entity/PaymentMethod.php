@@ -28,6 +28,8 @@ class PaymentMethod implements PagBankSerializable
 
     private ?Boleto $boleto = null;
 
+    private ?Pix $pix = null;
+
     public function createCard(): Card
     {
         return $this->card = new Card();
@@ -38,6 +40,13 @@ class PaymentMethod implements PagBankSerializable
         $this->setType(PaymentMethod::PAYMENT_TYPE_BOLETO);
 
         return $this->boleto = new Boleto();
+    }
+
+    public function createPix(): Pix
+    {
+        $this->setType(PaymentMethod::PAYMENT_TYPE_PIX);
+
+        return $this->pix = new Pix();
     }
 
     public function isCard(): bool
@@ -71,7 +80,7 @@ class PaymentMethod implements PagBankSerializable
                 self::PAYMENT_TYPE_BOLETO,
             ], true)
         ) {
-            throw new \InvalidArgumentException("Invalid payment type: {$type}. Must be 'CREDIT_CARD', 'DEBIT_CARD' or 'BOLETO'.");
+            throw new \InvalidArgumentException("Invalid payment type: {$type}. Must be 'CREDIT_CARD', 'DEBIT_CARD', 'PIX' or 'BOLETO'.");
         }
         $this->type = $type;
 
@@ -151,6 +160,18 @@ class PaymentMethod implements PagBankSerializable
     public function setBoleto(Boleto $boleto): static
     {
         $this->boleto = $boleto;
+
+        return $this;
+    }
+
+    public function getPix(): ?Pix
+    {
+        return $this->pix;
+    }
+
+    public function setPix(Pix $pix): static
+    {
+        $this->pix = $pix;
 
         return $this;
     }

@@ -12,6 +12,7 @@ use PagBankApi\Entity\Link;
 use PagBankApi\Entity\Order;
 use PagBankApi\Entity\PaymentMethod;
 use PagBankApi\Entity\Phone;
+use PagBankApi\Entity\Pix;
 use PagBankApi\Entity\QrCode;
 use PagBankApi\Entity\Shipping;
 use PagBankApi\Exception\PagBankException;
@@ -348,6 +349,63 @@ class PagBankIntegrationTest extends AbstractPagBankTestCase
         $this->assertInstanceOf(Boleto::class, $charge->getPaymentMethod()->getBoleto());
         $this->assertSame(Charge::STATUS_WAITING, $charge->getStatus());
         $this->assertSame('BOLETO', $charge->getPaymentMethod()->getType());
+    }
+
+    public function testCreateOrderPixSuccess(): void
+    {
+        $order = new Order();
+
+        $customer = $order->createCustomer();
+        $customer->setName('Jose Silva')
+            ->setEmail('teste@hotmail.com')
+            ->setTaxId('12345678909')
+            ->createPhone()
+            ->setCountry(55)
+            ->setArea(19)
+            ->setNumber(981389324);
+
+        $shipping = $order->createShipping()->createAddress();
+        $shipping->setStreet('Avenida Brigadeiro Faria Lima')
+            ->setNumber('1384')
+            ->setComplement('apto 12')
+            ->setLocality('Pinheiros')
+            ->setCity('Sao Paulo')
+            ->setRegionCode('SP')
+            ->setPostalCode('01452002');
+
+        $item = $order->createItem();
+        $item->setName('nome do item')
+            ->setQuantity(1)
+            ->setUnitAmount(102)
+            ->setReferenceId('referencia do item');
+
+        $charge = $order->createCharge();
+        $charge->setDescription('descricao da cobranca')
+            ->setAmount(20534)
+            ->setReferenceId('referencia da cobranca');
+
+        $charge->createPaymentMethod()
+            ->createPix()
+            ->setExpirationDate('2026-08-06T20:14:00Z');
+
+        $order->setNotificationUrls(['https://meusite.com/notificacoes']);
+
+        $this->mockHandler->append(new \GuzzleHttp\Psr7\Response(201, [], $this->getMockFileContents('payment_pix.json')));
+        $response = $this->pagBankService->createOrder($order);
+
+        $this->assertInstanceOf(Order::class, $response);
+
+        $charge = $response->getCharges()[0] ?? null;
+        $this->assertInstanceOf(Charge::class, $charge);
+        $this->assertInstanceOf(PaymentMethod::class, $charge->getPaymentMethod());
+        $this->assertInstanceOf(Pix::class, $charge->getPaymentMethod()->getPix());
+        $this->assertSame('2026-08-06T20:14:00Z', $charge->getPaymentMethod()->getPix()->getExpirationDate());
+        $this->assertSame(Charge::STATUS_WAITING, $charge->getStatus());
+        $this->assertSame('PIX', $charge->getPaymentMethod()->getType());
+
+        $this->assertInstanceOf(QrCode::class, $charge->getQrCode());
+        $this->assertSame('QRCO_0F63EB5F-61B8-4466-A4C9-7F824193C234', $charge->getQrCode()->getId());
+        $this->assertNotEmpty($charge->getQrCode()->getText());
     }
 
     public function testCreateOrderCardEncryptedSuccess(): void

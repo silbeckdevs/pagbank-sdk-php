@@ -3,6 +3,7 @@
 namespace PagBankApi\Tests\Unit;
 
 use PagBankApi\Entity\PaymentMethod;
+use PagBankApi\Entity\Pix;
 use PagBankApi\Tests\BaseTestCase;
 
 class UnitPaymentTest extends BaseTestCase
@@ -37,5 +38,37 @@ class UnitPaymentTest extends BaseTestCase
 
         $this->expectException(\InvalidArgumentException::class);
         $paymentMethod->setType('invalid');
+    }
+
+    public function testCreatePixSetsTypeAndReturnsPix(): void
+    {
+        $paymentMethod = new PaymentMethod();
+
+        $pix = $paymentMethod->createPix();
+
+        $this->assertInstanceOf(Pix::class, $pix);
+        $this->assertTrue($paymentMethod->isPix());
+        $this->assertSame(PaymentMethod::PAYMENT_TYPE_PIX, $paymentMethod->getType());
+        $this->assertSame($pix, $paymentMethod->getPix());
+    }
+
+    public function testSetAndGetPix(): void
+    {
+        $paymentMethod = new PaymentMethod();
+        $pix = new Pix();
+        $pix->setExpirationDate('2026-08-06T20:14:00Z');
+
+        $result = $paymentMethod->setPix($pix);
+
+        $this->assertSame($paymentMethod, $result);
+        $this->assertSame($pix, $paymentMethod->getPix());
+        $this->assertSame('2026-08-06T20:14:00Z', $paymentMethod->getPix()->getExpirationDate());
+    }
+
+    public function testGetPixDefaultNull(): void
+    {
+        $paymentMethod = new PaymentMethod();
+
+        $this->assertNull($paymentMethod->getPix());
     }
 }

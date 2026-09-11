@@ -63,7 +63,49 @@ var_dump($pagBankService->getOrder($response->getId()));
 
 ```
 
-## Criar order PIX
+## Criar pedido com PIX
+
+Cria um pedido com pagamento PIX diretamente no objeto `charges`, gerando um QR Code de uso único.
+
+Referência: <https://developer.pagbank.com.br/reference/criar-pedido-com-qr-code-pix-v2>
+
+```php
+use PagBankApi\Config\PagBankConfig;
+use PagBankApi\Entity\Order;
+use PagBankApi\Service\PagBankService;
+
+$pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfig::ENVIRONMENT_SANDBOX));
+
+$order = new Order();
+// populate order (customer, items, shipping) ...
+
+$order->createCharge()
+    ->setReferenceId('referencia da cobranca')
+    ->setDescription('descricao da cobranca')
+    ->setAmount(20534)
+    ->createPaymentMethod()
+    ->createPix()
+    ->setExpirationDate('2026-08-06T20:14:00Z');
+
+$order->setNotificationUrls(['https://meusite.com/notificacoes']);
+
+$response = $pagBankService->createOrder($order);
+
+$charge = $response->getCharges()[0];
+
+// Status da cobrança (WAITING, DECLINED, PAID)
+var_dump($charge->getStatus());
+
+// PIX copia e cola
+var_dump($charge->getQrCode()?->getText());
+
+// Dados do PIX na resposta
+var_dump($charge->getPaymentMethod()->getPix()->getExpirationDate());
+```
+
+## Criar pedido com Pagar com PagBank (QR Code)
+
+Através desse endpoint é possível criar um pedido com QR Code, gerado através da API Order que pode ser pago com o Pagar com PagBank.
 
 ```php
 use PagBankApi\Config\PagBankConfig;
@@ -76,9 +118,13 @@ $pagBankService = new PagBankService(new PagBankConfig('123456789', PagBankConfi
 $order = new Order();
 // populate oder ...
 
-$order->createQrCode()
+$qrCode = $order->createQrCode()
     ->setAmount(50000)
     ->setExpirationDate('2025-01-20T20:15:59-03:00');
+
+// Ao informar um valor no objeto qr_codes, e informar o PAGBANK no objeto "arrangements", o QR code será gerado automaticamente
+// e pode ser pago com Pagar com PagBank através do app PagBank (utilizando o saldo e o cartão de crédito á vista)
+// $qrCode->setArrangements(['PAGBANK']);
 
 $response = $pagBankService->createOrder($order);
 var_dump($response->getQrCodes());
