@@ -1,3 +1,8 @@
+# Auto-detect text files, ensure they use LF (see .editorconfig).
+* text=auto eol=lf
+*.php text eol=lf
+
+# Exclude non-essential files from Composer dist archives.
 /.editorconfig export-ignore
 /.cursorignore export-ignore
 /.gitattributes export-ignore

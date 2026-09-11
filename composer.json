@@ -8,14 +8,14 @@
   "require": {
     "php": "^8.2",
     "psr/http-client": "^1.0.3",
-    "guzzlehttp/guzzle": "^7.10.0"
+    "guzzlehttp/guzzle": "^7.15.5"
   },
   "require-dev": {
-    "phpunit/phpunit": "^12.5.23",
-    "phpstan/phpstan": "^2.1.50",
+    "phpunit/phpunit": "^12.5.35",
+    "phpstan/phpstan": "^2.2.13",
     "kint-php/kint": "^6.1.0",
-    "monolog/monolog": "^3.10.0",
-    "friendsofphp/php-cs-fixer": "^3.95.1",
+    "monolog/monolog": "^3.12.0",
+    "friendsofphp/php-cs-fixer": "^3.95.25",
     "brainmaestro/composer-git-hooks": "^3.0.0"
   },
   "autoload": {
