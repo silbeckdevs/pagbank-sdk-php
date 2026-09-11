@@ -20,6 +20,9 @@ class QrCode implements PagBankSerializable
 
     private ?string $expiration_date = null;
 
+    /** @var string[]|null */
+    private ?array $arrangements = null;
+
     public function getId(): ?string
     {
         return $this->id;
@@ -82,5 +85,19 @@ class QrCode implements PagBankSerializable
         $this->links = $links;
 
         return $this;
+    }
+
+    /** @param string[] $arrangements     */
+    public function setArrangements(array $arrangements): static
+    {
+        $this->arrangements = $arrangements;
+
+        return $this;
+    }
+
+    /** @return string[]|null */
+    public function getArrangements(): ?array
+    {
+        return $this->arrangements;
     }
 }

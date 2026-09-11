@@ -70,7 +70,7 @@ trait SerializeTrait
             }
 
             if ($propertyType instanceof \ReflectionNamedType && !$propertyType->isBuiltin() || $mapping) {
-                $className = $mapping ? $mapping->className : $propertyType?->getName();
+                $className = $mapping ? $mapping->className : $propertyType->getName();
                 if (empty($className) || !is_array($value)) {
                     continue;
                 }
